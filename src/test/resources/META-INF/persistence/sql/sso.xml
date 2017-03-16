@@ -1,0 +1,27 @@
+<sql>
+	<select id="menu" prepare="true">
+		<![CDATA[
+		select count(*) from sys_menu where 1=1
+		<#if morder?exists&&morder!=''>and morder=:morder</#if>
+		]]>
+	</select>
+	<select id="user" paging="true" injection="code,name">
+		<![CDATA[
+		select * from sys_user where 1=1
+		<#if code?exists&&code!=''>and code='${code}'</#if>
+		]]>
+	</select>
+	<select id="usertotal" class="int" first="true" prepare="true">
+		<![CDATA[
+		select count(*) from sys_user where 1=1
+		<#if code?exists&&code!=''>and code=:code</#if>
+		]]>
+	</select>
+	<select id="menu" class="map">
+		<sql>
+		select mid as id,parentid,text as dd,'aaa' bb,win,js,config,morder,service,sqlid,mmenu from
+		sys_menu
+		where mid='00' or parentid='00'
+		</sql>
+	</select>
+</sql>

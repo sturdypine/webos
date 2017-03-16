@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans        
+	http://www.springframework.org/schema/beans/spring-beans.xsd       
+	 http://code.alibabatech.com/schema/dubbo        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	<!-- 提供方应用信息，用于计算依赖关系 -->
+	<dubbo:application name="hello-world-app" />
+	
+	<dubbo:provider filter="traceno"/>
+
+	<!-- 使用multicast广播注册中心暴露服务地址 -->
+
+	<!--   <dubbo:registry address="multicast://224.5.6.7:1234" /> -->
+	<!--  
+	<dubbo:registry address="zookeeper://127.0.0.1:2181?backup=127.0.0.1:2182,127.0.0.1:2183"  />
+	-->
+	<dubbo:registry address="zookeeper://BOC_DUBBO:2181"  />
+	<!-- 用dubbo协议在20880端口暴露服务 -->
+	<dubbo:protocol name="dubbo" port="-1" dispatcher="message"
+		threadpool="fixed" threads="10" />
+
+	<!-- 声明需要暴露的服务接口 -->
+	<dubbo:service interface="demo.IDemoService" ref="demoService"
+		version="1.0" connections="1" callbacks="1">
+		<dubbo:method name="sayHello2">
+			<dubbo:argument index="1" callback="true" />
+		</dubbo:method>
+	</dubbo:service>
+
+	<!-- 和本地bean一样实现服务 -->
+	<bean id="demoService" class="demo.impl.DemoService" />
+
+	<!-- 暴露服务配置 -->
+	<!-- <dubbo:monitor protocol="registry" /> <dubbo:service interface="com.alibaba.dubbo.monitor.MonitorService" 
+		ref="monitorService" /> <bean id="monitorService" class="monitor.SimpleMonitorService" 
+		/> -->
+</beans>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:amq="http://activemq.apache.org/schema/core"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jms="http://www.springframework.org/schema/jms"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd 
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+	 http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms-4.0.xsd
+     http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core.xsd">
+
+	<!--  以下是消息消费方配置  -->
+	<bean id="jscService" class="test.jsc.impl.JSCCallbackServiceImpl" />
+	<bean class="spc.webos.util.SpringUtil" factory-method="getInstance"
+		p:jvm="01" />
+	<bean id="uuid" class="spc.webos.service.seq.impl.TimeMillisUUID" />
+	<!-- 消息监听容器 -->
+	<bean id="amqReqJscallML" class="spc.webos.mq.jms.JSCallMessageListener" p:jms-ref="jms" p:request="true" />
+	<bean id="amqResJscallML" class="spc.webos.mq.jms.JSCallMessageListener" p:jms-ref="jms" p:request="false" />
+	
+	<bean id="logMsgML" class="spc.webos.mq.jms.LogMsgMessageListener" />
+
+	<!-- <jms:listener destination="asj.log" ref="converteredLogListener" method="onLog" 
+		/> -->
+	<jms:listener-container destination-type="queue"
+		concurrency="2-20" recovery-interval="30000" receive-timeout="5000"
+		container-type="default" connection-factory="connectionFactory"
+		acknowledge="auto">
+		<jms:listener destination="REQ_DOCK?consumer.prefetchSize=2"
+			ref="amqReqJscallML" />
+		<jms:listener destination="REP_DOCK?consumer.prefetchSize=2"
+			ref="amqResJscallML" />
+	</jms:listener-container>
+</beans>

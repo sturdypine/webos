@@ -1,0 +1,25 @@
+<sql>
+	<!-- for tcc -->
+	<select id="tccXid" class="string" paging="true">
+	<![CDATA[
+		select xid from tcc_transaction
+		where gname='${gname}' 
+		<#if status?exists&&status!=''>and status in(${status})</#if>
+	]]>
+	</select>
+	<update id="tccUpdTermStatus">
+		update tcc_terminator set status=${status} where xid='${xid}' and seq in(${seq}) and status not in(22,32)
+	</update>
+	<!-- for tcc end -->
+	
+	<!-- common query -->
+	<select id="sql">
+	<![CDATA[
+		<#if (SUI.userCode='admin')>${SQL}</#if>
+	]]>
+	</select>
+ 
+	<select id="retcode">
+		select * from sys_retcode order by retcd
+	</select>
+</sql>

@@ -1,0 +1,34 @@
+4.8
+2011-03-06 chenjs
+1. 修改spc.webos.endpoint.ESB, 传入参数Message，自动补充报文头中没填写的部分,ver, seqNb, sndDt, sndTm, sndAppCd等
+2. 修改MQAccessTPool，修改每次队列消息读取等待时间，从4.5s 到 1s。同时修改StartupAppListener，将停止间隔时间从5秒改为
+   2秒，线程日志的等待时间从2秒改为1秒。
+2011-03-07 chenjs
+1. 修改StartupAppListener中最后日志等待时间为100ms
+2. 修改BPELInstanceVO中parentXml属性为数据库Blob字段类型.
+
+2011-03-20 chenjs
+1. 增加IMessage接口getMQCorId方法，用于直接根据报文流水生成MQ消息关联ID
+2. 增加DefaultAtomProcessor类，移植原来MessageTranslator中的方法片段
+3. TreeNode增加一个TreeNode find(ITreeNodeMatcher matcher)接口，用于查找子结构
+4. 修改了model包下的所有VO的toJson方法，以前方法存在bug，修改后需要依赖3个jar，此3个jar在jetty中已经存在，
+       但MB以前版本没有放。ezmorph-1.0.6.jar commons-lang-2.2.jar  commons-beanutils-1.7.0.jar
+   
+
+2011-03-22 chenjs
+1. 修改StringX.int2str & float2str 支持负数
+
+
+2013-03-12 liujk
+
+1.修改QueueMessage，增加replyToQ、replyToQMgr、report属性，以及对应的get和set方法
+  修改MsgLocalKey,增加PUT_QMSG_KEY定义
+  修改QueueAccess类public QueueMessage receive(String qname, byte[] correlationId, int timeout) throws Exception方法，增加timeout不同值得处理
+  
+  
+2014-06-01 710版本
+1. 修改DefaultServerHandler 容许带头长度字节到适配器
+2. 增加了tcp协议大文件操作。FileServerHandler, FileAsynTCPResponseAFNode
+3. 增加tcp协议大文件操作endpoint, FileAsynTCPClientHandler, FileAsynTCPEndpoint
+
+

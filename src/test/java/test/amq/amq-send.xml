@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:amq="http://activemq.apache.org/schema/core"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jms="http://www.springframework.org/schema/jms"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd 
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+	 http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms-4.0.xsd
+     http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core.xsd">
+
+	<!-- <bean id="amqBroker" class="org.apache.activemq.xbean.BrokerFactoryBean" 
+		p:config="classpath:META-INF/activemq/broker.xml" p:start="true" p:systemExitOnShutdown="true" 
+		/> -->
+	<!-- ConnectionFactory是用于生产JMS服务器的链接，Spring为我们提供了SingleConnectionFactory和CachingConnectionFactory。 
+		SingleConnectionFactory对于建立JMS服务器链接的请求会一直返回同一个链接，并且会忽略Connection的close方法调用。 
+		CachingConnectionFactory继承了SingleConnectionFactory，所以它拥有SingleConnectionFactory的所有功能，同时它还新增了缓存功能，它可以缓存Session、MessageProducer和MessageConsumer。 -->
+	<!-- Spring用于管理真正的ConnectionFactory -->
+	<!-- 目标ConnectionFactory对应真实的可以产生JMS Connection的ConnectionFactory -->
+	<!-- 真正可以产生Connection的ConnectionFactory，由对应的 JMS服务厂商提供 -->
+	<bean id="connectionFactory" class="org.apache.activemq.jms.pool.PooledConnectionFactory"
+		destroy-method="stop" p:maxConnections="5">
+		<property name="connectionFactory">
+			<bean class="org.apache.activemq.ActiveMQConnectionFactory"
+				p:brokerURL="tcp://10.211.17.33:61616?jms.prefetchPolicy.all=2" /> <!-- vm://broker_1 p:brokerURL="tcp://localhost:61616?jms.prefetchPolicy.all=2 " -->
+		</property>
+	</bean>
+
+	<!-- Spring提供的JMS工具类，它可以进行消息发送、接收等 -->
+	<!-- 这个connectionFactory对应的是我们定义的Spring提供的那个ConnectionFactory对象 -->
+	<bean id="jms" class="spc.webos.mq.jms.MultiBrokerSendJmsTemplate">
+		<property name="multiBrokerJms">
+			<util:list>
+				<bean class="org.springframework.jms.core.JmsTemplate"
+					p:connectionFactory-ref="connectionFactory" />
+			</util:list>
+		</property>
+	</bean>
+ 
+</beans>

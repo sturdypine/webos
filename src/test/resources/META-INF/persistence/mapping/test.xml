@@ -1,0 +1,63 @@
+<classes>
+<!--  
+	<class name="model.NodeServicePO" table="esb_nodeservice">
+		<property name="appCd" primary="true" />
+		<property name="mbrCd" primary="true" />
+		<property name="msgCd" primary="true" />
+		<property name="attr" />
+		<property name="qname" />
+		<property name="routeRule" />
+		<property name="routeBeanName" />
+		<property name="location" />
+		<property name="asynRepQName" />
+		<property name="asynRepLocation" />
+		<property name="userCd" />
+		<property name="verDt" />
+		<property name="verStatus" />
+		<property name="actionNm" />
+		<many-to-one name="node" javaType="model.NodePO" map="appCd:appCd,mbrCd" />
+		<one-to-many name="nodes" javaType="model.NodePO" from="appCd" />
+	</class>
+-->
+
+<!--  
+	<class name="model.NodePO" table="esb_node">
+		<property name="appCd" primary="true" />
+		<property name="mbrCd" primary="true" />
+		<property name="name" />
+		<property name="appAttr" />
+		<property name="sigBeanId" />
+		<property name="sigCntBeanId" />
+		<property name="host" />
+		<property name="localPort" />
+		<property name="accessType" />
+		<property name="faBeanId" />
+		<property name="baBeanId" />
+		<property name="publicKey" />
+		<property name="desKey" />
+		<property name="echoMsgCd" />
+		<property name="publishDt" />
+		<property name="effectDt" />
+		<property name="location" />
+		<property name="ext1" />
+		<property name="ext2" />
+		<property name="ext3" />
+		<property name="synResponse2QM" />
+		<property name="authMsgCd" />
+		<property name="qmgr" />
+		<property name="httpURI" />
+		<property name="remark" />
+		<property name="locationNo" javaType="Integer" />
+		<property name="slaMaxCon" javaType="Integer" />
+		<property name="slaAvgCost" javaType="Integer" />
+		<property name="slaMaxCost" javaType="Integer" />
+		<property name="slaSucRatio" javaType="Double" />
+		<property name="slaRecovery" javaType="Integer" />
+		<property name="userCd" />
+		<property name="lastUpdTm" />
+		<property name="verDt" />
+		<property name="verStatus" />
+		<property name="actionNm" />
+	</class>
+-->
+</classes>

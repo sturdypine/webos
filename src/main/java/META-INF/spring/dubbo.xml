@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans        
+	http://www.springframework.org/schema/beans/spring-beans.xsd       
+	http://code.alibabatech.com/schema/dubbo        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	<dubbo:application name="${app.name?SPC}" />
+
+	<dubbo:registry address="${dubbo.registry.address?zookeeper://localhost:2181}" />
+
+	<dubbo:protocol name="dubbo" port="${dubbo.port?-1}"
+		dispatcher="${dubbo.protocol.dispatcher?all}" threadpool="${dubbo.protocol.threadpool?fixed}"
+		threads="${dubbo.protocol.threads?100}" queues="${dubbo.protocol.queues?0}"
+		buffer="${dubbo.protocol.buffer?8192}" accepts="${dubbo.protocol.accepts?1000}"
+		heartbeat="${dubbo.protocol.heartbeat?0}" />
+
+	<dubbo:provider filter="traceno" />
+	<dubbo:consumer filter="traceno" />
+</beans>
