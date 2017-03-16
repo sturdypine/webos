@@ -87,7 +87,6 @@
 	<classpathentry kind="lib" path="lib/rocketmq-common-3.2.6.jar"/>
 	<classpathentry kind="lib" path="lib/rocketmq-remoting-3.2.6.jar"/>
 	<classpathentry kind="lib" path="lib/slf4j-api-1.7.13.jar"/>
-	<classpathentry kind="lib" path="lib/spc-webos-9.0.1-SNAPSHOT.jar"/>
 	<classpathentry kind="lib" path="lib/spring-aop-4.3.1.RELEASE.jar"/>
 	<classpathentry kind="lib" path="lib/spring-aspects-4.3.1.RELEASE.jar"/>
 	<classpathentry kind="lib" path="lib/spring-beans-4.3.1.RELEASE.jar"/>
