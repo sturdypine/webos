@@ -9,13 +9,13 @@ import org.slf4j.LoggerFactory;
  * @author chenjs
  *
  */
-public class SwitchDynamicDS implements AutoCloseable
+public class SwitchDS implements AutoCloseable
 {
 	protected Logger log = LoggerFactory.getLogger(getClass());
 	String ds;
 	String oldDS;
 
-	public SwitchDynamicDS(String ds)
+	public SwitchDS(String ds)
 	{
 		this.ds = ds;
 		oldDS = DynamicDataSource.current();
@@ -24,7 +24,7 @@ public class SwitchDynamicDS implements AutoCloseable
 	}
 
 	@Override
-	public void close() throws Exception
+	public void close()
 	{
 		DynamicDataSource.current(oldDS);
 		log.info("DS remove:{}, old:{}", DynamicDataSource.current(), oldDS);
