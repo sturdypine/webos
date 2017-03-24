@@ -70,7 +70,6 @@
 	<classpathentry kind="lib" path="lib/jbpm-jpdl-3.2.jar"/>
 	<classpathentry kind="lib" path="lib/jcl-over-slf4j-1.7.21.jar"/>
 	<classpathentry kind="lib" path="lib/jedis-2.9.0.jar"/>
-	<classpathentry kind="lib" path="lib/jeksparser.jar"/>
 	<classpathentry kind="lib" path="lib/jline-0.9.94.jar"/>
 	<classpathentry kind="lib" path="lib/jregex1.2_01.jar"/>
 	<classpathentry kind="lib" path="lib/log4j-over-slf4j-1.7.21.jar"/>
@@ -107,5 +106,6 @@
 	<classpathentry kind="lib" path="lib/zkclient-0.7.jar"/>
 	<classpathentry kind="lib" path="lib/zookeeper-3.4.9.jar"/>
 	<classpathentry kind="lib" path="/Users/chenjs/software/webos/apps/mule/lib/mule/mule-3.8.1-embedded.jar"/>
+	<classpathentry kind="lib" path="lib/jeksparser.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
