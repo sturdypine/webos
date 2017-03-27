@@ -6,16 +6,20 @@ import java.lang.management.ManagementFactory;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
+import java.net.URL;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.annotation.PostConstruct;
@@ -84,6 +88,41 @@ public final class SpringUtil implements ResourceLoaderAware, ApplicationContext
 				Common.VER(), APPCODE, JVM, System.getProperty(Config.APP_WORKERID),
 				getLocalHostIP(), pid(), getDataDir().getAbsolutePath(),
 				System.getProperty("user.dir"));
+	}
+	
+	public static void checkDuplicate(Class cls)
+	{
+		checkDuplicate(cls.getName().replace('.', '/') + ".class");
+	}
+
+	public static void checkDuplicate(String path)
+	{
+		try
+		{
+			// 在ClassPath搜文件
+			Enumeration<URL> urls = Thread.currentThread().getContextClassLoader()
+					.getResources(path);
+			Set files = new HashSet();
+			while (urls.hasMoreElements())
+			{
+				URL url = urls.nextElement();
+				if (url != null)
+				{
+					String file = url.getFile();
+					if (file != null && file.length() > 0) files.add(file);
+				}
+			}
+			// 如果有多个，就表示重复
+			if (files.size() > 1)
+			{
+				System.err.println("Duplicate class " + path + " in " + files.size() + " jar "
+						+ files);
+			}
+		}
+		catch (Throwable e)
+		{ // 防御性容错
+			e.printStackTrace();
+		}
 	}
 
 	public static String pid()
