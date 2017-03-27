@@ -50,6 +50,7 @@ public class WebUtil
 					|| (ss.endsWith("*") && s.startsWith(ss.substring(0, ss.length() - 1))))
 				return true;
 		}
+		log.info("({}) not in ({})", s, auth);
 		return false;
 	}
 

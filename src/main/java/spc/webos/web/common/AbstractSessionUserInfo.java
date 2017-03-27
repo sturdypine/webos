@@ -213,13 +213,13 @@ public abstract class AbstractSessionUserInfo<T> implements SUI, Serializable, C
 
 	public boolean containSqlId(String s, Map param)
 	{
-		if (sqlIds == null) return true;
+		if (sqlIds == null) return false;
 		return WebUtil.isAuth(sqlIds, s.replace('.', '_'));
 	}
 
 	public boolean containService(String s)
 	{
-		if (services == null) return true;
+		if (services == null) return false;
 		return WebUtil.isAuth(services, s);
 	}
 

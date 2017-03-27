@@ -146,10 +146,19 @@ public class LoginServiceImpl extends BaseService implements LoginService
 	protected void assign()
 	{ // 分配当前用户的权限资源 // 验密和授权分离，方便未来支持免密登录
 		SessionUserInfo sui = (SessionUserInfo) SUI.SUI.get();
-		if (sui == null) return;
+		if (sui == null)
+		{
+			log.warn("sui is null");
+			return;
+		}
 		UserPO userVO = sui.getUser();
-		if (userVO == null) return;
+		if (userVO == null)
+		{
+			log.warn("user is null");
+			return;
+		}
 		sui.setRoles(getUserRole(userVO));
+		log.info("roles:{}", sui.getRoles());
 		// 设置当前用户能访问的服务和sql
 		final List<String> services = new ArrayList<>(config
 				.getProperty(Config.app_login_default_services, false, new ArrayList<String>()));
@@ -171,7 +180,7 @@ public class LoginServiceImpl extends BaseService implements LoginService
 		});
 		sui.setServices(services);
 		sui.setSqlIds(sqlIds);
-		log.debug("menus:{}, services:{}, sqlIds:{}", menus.size(), services, sqlIds);
+		log.info("assign menus:{}, services:{}, sql:{}", menus.size(), services, sqlIds);
 	}
 
 	protected void checkIP(UserPO userVO)
@@ -239,7 +248,6 @@ public class LoginServiceImpl extends BaseService implements LoginService
 			for (int j = 0; menu != null && j < menu.size(); j++)
 				if (!menus.contains(menu.get(j))) menus.add(menu.get(j));
 		}
-		log.info("menus:{}", menus);
 		return menus;
 	}
 
