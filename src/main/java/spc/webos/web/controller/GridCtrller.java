@@ -15,12 +15,18 @@ import spc.webos.service.common.PersistenceService;
 import spc.webos.util.StringX;
 import spc.webos.web.util.WebUtil;
 
-public class ExtjsGridCtrller extends JSCallCtrller
+/**
+ * 用于生成表格数据(含分页)。数据格式为gridView指定的json格式，符合extjs grid的表格数据要求
+ * {sucess:true, limit:25, start:0, data:[..]}
+ * @author chenjs
+ *
+ */
+public class GridCtrller extends JSCallCtrller
 {
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws Exception
 	{
-		ModelAndView mv = new ModelAndView(extGridView);
+		ModelAndView mv = new ModelAndView(gridView);
 		Map params = mv.getModel();
 		params.putAll(StringX.uri2params(request.getRequestURI(), 2));
 		WebUtil.request2map(request, params);
@@ -54,15 +60,15 @@ public class ExtjsGridCtrller extends JSCallCtrller
 
 	@Resource
 	protected PersistenceService persistenceService;
-	protected String extGridView = "extjsGridView";
+	protected String gridView = "gridView";
 
 	public void setPersistenceService(PersistenceService persistenceService)
 	{
 		this.persistenceService = persistenceService;
 	}
 
-	public void setExtGridView(String extGridView)
+	public void setGridView(String gridView)
 	{
-		this.extGridView = extGridView;
+		this.gridView = gridView;
 	}
 }

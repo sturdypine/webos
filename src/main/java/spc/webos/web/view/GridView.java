@@ -23,7 +23,7 @@ import spc.webos.util.StringX;
  * @author chenjs
  *
  */
-public class ExtjsGridView implements View
+public class GridView implements View
 {
 	protected Logger log = LoggerFactory.getLogger(getClass());
 
