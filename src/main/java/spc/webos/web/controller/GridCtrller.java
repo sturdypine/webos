@@ -21,7 +21,7 @@ import spc.webos.web.util.WebUtil;
  * @author chenjs
  *
  */
-public class GridCtrller extends JSCallCtrller
+public class GridCtrller extends ApiCtrller
 {
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws Exception

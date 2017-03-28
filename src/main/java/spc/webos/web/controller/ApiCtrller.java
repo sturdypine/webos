@@ -24,12 +24,12 @@ import spc.webos.web.util.WebUtil;
  * @author chenjs
  * 
  */
-public class JSCallCtrller implements Controller
+public class ApiCtrller implements Controller
 {
 	protected Logger log = LoggerFactory.getLogger(getClass());
 	protected String charset = Common.CHARSET_UTF8;
 
-	protected String viewName = "jsCallView";
+	protected String viewName = "apiView";
 	protected String servicePostfix = "Service";
 	protected String viewPostfix = "View"; // spring id中view的统一后缀名
 	protected String argsName = "args";
@@ -63,7 +63,7 @@ public class JSCallCtrller implements Controller
 		String[] m = StringX.last2path(request.getRequestURI());
 		Object requestArgs = StringX.nullity(args) ? null : JsonUtil.json2obj(args);
 		int argNum = WebUtil.getMethodArgNum(m[0], m[1], requestArgs);
-		log.info("jsc:{}.{}, argNum:{}, len:{}, args:{}", m[0], m[1], argNum, args.length(),
+		log.info("api:{}.{}, argNum:{}, len:{}, args:{}", m[0], m[1], argNum, args.length(),
 				requestArgs != null);
 		WebUtil.containService(m[0], m[1], argNum);
 		return SpringUtil.jsonCall(m[0].endsWith(servicePostfix) ? m[0] : m[0] + servicePostfix,

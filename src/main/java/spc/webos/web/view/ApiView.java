@@ -16,7 +16,7 @@ import spc.webos.util.JsonUtil;
 import spc.webos.util.StringX;
 import spc.webos.web.filter.multipart.MultipartRequestHandler;
 
-public class JSCallView implements View
+public class ApiView implements View
 {
 	protected Logger log = LoggerFactory.getLogger(getClass());
 	protected String resultTag; // = "result";

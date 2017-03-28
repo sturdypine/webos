@@ -50,7 +50,7 @@ public class WebUtil
 					|| (ss.endsWith("*") && s.startsWith(ss.substring(0, ss.length() - 1))))
 				return true;
 		}
-		log.info("({}) not in ({})", s, auth);
+		log.debug("({}) not in ({})", s, auth);
 		return false;
 	}
 
@@ -68,7 +68,10 @@ public class WebUtil
 			if (isAuth(AppConfig.getInstance().getProperty(Config.app_web_auth_login_sql, false,
 					DEF_LOGIN_SQL), sqlId))
 				return true;
-			return sui.containSqlId(sqlId, param);
+			boolean auth = sui.containSqlId(sqlId, param);
+			if (!auth) log.info("unauthorized sql:({}), user:{}::{}", sqlId, sui.getUserCode(),
+					sui.getSqlIds());
+			return auth;
 		}
 		return false;
 	}
@@ -82,13 +85,17 @@ public class WebUtil
 		SUI sui = SUI.SUI.get();
 		if (sui != null)
 		{ // 如果已经登录，则必须检查当前登陆者执行服务的权限
-			log.info("unauthorized service:({}.{}), user:{}", s, m, sui.getUserCode());
 			boolean auth = false;
 			if (isAuth(AppConfig.getInstance().getProperty(Config.app_web_auth_login_service, false,
 					DEF_LOGIN_SERVICE), service))
 				auth = true;
 			if (!auth) auth = sui.containService(service);
-			if (!auth) throw new AppException(AppRetCode.SERVICE_UNAUTH, new Object[] { service });
+			if (!auth)
+			{
+				log.info("unauthorized service:({}.{}), user:{}::{}", s, m, sui.getUserCode(),
+						sui.getServices());
+				throw new AppException(AppRetCode.SERVICE_UNAUTH, new Object[] { service });
+			}
 		}
 	}
 

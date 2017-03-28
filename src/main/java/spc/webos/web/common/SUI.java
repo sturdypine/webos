@@ -105,6 +105,10 @@ public interface SUI
 
 	List<String> getRoles();
 
+	List<String> getServices();
+
+	List<String> getSqlIds();
+
 	// 是否有执行此sqlid的权限
 	boolean containSqlId(String sqlId, Map<String, Object> param);
 
