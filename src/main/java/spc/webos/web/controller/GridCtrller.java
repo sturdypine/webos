@@ -17,7 +17,7 @@ import spc.webos.web.util.WebUtil;
 
 /**
  * 用于生成表格数据(含分页)。数据格式为gridView指定的json格式，符合extjs grid的表格数据要求
- * {sucess:true, limit:25, start:0, data:[..]}
+ * {"success":true,"total":81,"start":10,"limit":5,"data":[..]}
  * @author chenjs
  *
  */
