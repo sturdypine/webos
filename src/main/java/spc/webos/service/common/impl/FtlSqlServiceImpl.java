@@ -82,7 +82,7 @@ public class FtlSqlServiceImpl extends BaseService
 		}
 		catch (Exception e)
 		{
-			log.info("loadFTLInDB", e);
+			log.warn("loadFTLInDB", e);
 		}
 	}
 
@@ -100,7 +100,7 @@ public class FtlSqlServiceImpl extends BaseService
 		}
 		catch (Exception e)
 		{
-			log.info("fail to load SQL in DB:" + e);
+			log.warn("fail to load SQL in DB:" + e);
 		}
 	}
 
