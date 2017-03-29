@@ -244,13 +244,13 @@ public class Spring
 		// ds.getDbType();
 		// ds.getDriver();
 		// Endpoint endpoint =
-		// EndpointFactory.getInstance().getEndpoint("https://boc.bangronghui.com/portal/");
+		// EndpointFactory.getInstance().getEndpoint("https://127.0.0.1/portal/");
 		// Endpoint endpoint =
-		// EndpointFactory.getInstance().getEndpoint("https://esb.bangronghui.com/");
+		// EndpointFactory.getInstance().getEndpoint("https://127.0.0.1/");
 		// Endpoint endpoint =
-		// EndpointFactory.getInstance().getEndpoint("https://10.211.18.21/");
+		// EndpointFactory.getInstance().getEndpoint("https://127.0.0.1/");
 		// Endpoint endpoint =
-		// EndpointFactory.getInstance().getEndpoint("http://10.211.18.10:9111/");
+		// EndpointFactory.getInstance().getEndpoint("http://127.0.0.1:9111/");
 		// Executable exe = new Executable();
 		// endpoint.execute(exe);
 		// exe.request = "aaaa".getBytes();
