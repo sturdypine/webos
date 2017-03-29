@@ -1,10 +1,12 @@
 package test;
 
+import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Properties;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -12,10 +14,12 @@ import javax.annotation.Resource;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import demo.DemoService;
+import spc.webos.constant.Common;
 import spc.webos.model.UserPO;
 import spc.webos.mq.MQ;
 import spc.webos.mq.MQ.Future;
@@ -229,12 +233,28 @@ public class Spring
 				.collect(Collectors.groupingBy(k -> k, Collectors.counting()));
 		System.out.println(counted);
 	}
-
+	
+	static void res()throws Exception
+	{
+		Properties props = new Properties();
+		PathMatchingResourcePatternResolver prpr = new PathMatchingResourcePatternResolver();
+		org.springframework.core.io.Resource res = prpr.getResource("classpath:222.properties");
+		System.out.println("res:"+res);
+		try (InputStreamReader reader = new InputStreamReader(res.getInputStream(),
+				Common.CHARSET_UTF8))
+		{
+			props.load(reader);
+		}
+		catch(Exception e)
+		{
+		}
+	}
 	public static void main(String[] args) throws Exception
 	{
+		res();
 		// mr1();
 		// mr2();
-		mr3();
+//		mr3();
 		// Map<String, Object> params = new HashMap<>();
 		// params.put("aa", new Long("1111111111111"));
 		// params.put("bb", 33333);

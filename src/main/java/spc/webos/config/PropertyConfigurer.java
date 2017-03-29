@@ -100,10 +100,21 @@ public class PropertyConfigurer extends PropertyPlaceholderConfigurer
 			{
 				props.load(reader);
 			}
+			catch (Exception e)
+			{ // 940， 支持在docker环境下启动一个独立jvm进程无需一定要读取jvm.properties
+				log.warn("fail to load: classpath:" + workerId + ".properties, " + e);
+			}
 		}
 		this.props = props;
 		this.app = props.getProperty("app.name");
 		this.jvm = props.getProperty("app.workerId");
+		// 940_20170329,
+		// 如果jvm.properties里面没有提供app.workerId配置，则使用jvm启动命令的-Dapp.workerId=${jvm}
+		if (StringX.nullity(jvm))
+		{
+			this.jvm = workerId;
+			props.setProperty("app.workerId", workerId);
+		}
 		log.info("load jvm properties:{}, app:{}.{}", workerId, app, jvm);
 		String dbconfig = props.getProperty(APP_DBCONFIG);
 		String url = props.getProperty(DEFAULT_JDBC_URL);
