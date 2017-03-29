@@ -115,7 +115,7 @@ public class PropertyConfigurer extends PropertyPlaceholderConfigurer
 			this.jvm = workerId;
 			props.setProperty("app.workerId", workerId);
 		}
-		log.info("load jvm properties:{}, app:{}.{}", workerId, app, jvm);
+		log.info("load: {}.properties, app:{}.{}", workerId, app, jvm);
 		String dbconfig = props.getProperty(APP_DBCONFIG);
 		String url = props.getProperty(DEFAULT_JDBC_URL);
 		if (!"false".equalsIgnoreCase(dbconfig) && url != null) loadDBConfig();
