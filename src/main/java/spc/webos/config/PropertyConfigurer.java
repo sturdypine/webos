@@ -46,7 +46,8 @@ public class PropertyConfigurer extends PropertyPlaceholderConfigurer
 		for (String k : keys)
 		{ // 容许设置多重key
 			value = getProperty(k);
-			if (value != null) return value;
+			// 支持配置参数里面引用当前jvm代号，940
+			if (value != null) return StringX.replace(value, "${jvm}", jvm);
 		}
 		// if (value == null) value = dbProps.getProperty(keys[0]);
 		// if (value == null) value = defValue;
