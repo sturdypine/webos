@@ -21,7 +21,6 @@ public class ApiView implements View
 	protected Logger log = LoggerFactory.getLogger(getClass());
 	protected String resultTag; // = "result";
 	protected String successTag = "success";
-	protected boolean utf8 = false;
 
 	public String getContentType()
 	{
@@ -41,6 +40,7 @@ public class ApiView implements View
 			ret = retm;
 		}
 		String json = JsonUtil.obj2json(ret);
+		boolean utf8 = "true".equalsIgnoreCase(request.getHeader("utf8"));
 		log.debug("utf8:{}, json:{}", utf8, json);
 		response.getWriter().print(utf8 ? StringX.str2utf8(json) : json);
 	}
@@ -53,10 +53,5 @@ public class ApiView implements View
 	public void setSuccessTag(String successTag)
 	{
 		this.successTag = successTag;
-	}
-
-	public void setUtf8(boolean utf8)
-	{
-		this.utf8 = utf8;
 	}
 }
