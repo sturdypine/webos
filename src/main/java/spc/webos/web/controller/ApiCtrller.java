@@ -62,12 +62,12 @@ public class ApiCtrller implements Controller
 		args = StringX.trim(StringX.utf82str(StringX.null2emptystr(args)));
 		String[] m = StringX.last2path(request.getRequestURI());
 		Object requestArgs = StringX.nullity(args) ? null : JsonUtil.json2obj(args);
-		int argNum = WebUtil.getMethodArgNum(m[0], m[1], requestArgs);
-		log.info("api:{}.{}, argNum:{}, len:{}, args:{}", m[0], m[1], argNum, args.length(),
+		String sname = m[0].endsWith(servicePostfix) ? m[0] : m[0] + servicePostfix;
+		int argNum = WebUtil.getMethodArgNum(sname, m[1], requestArgs);
+		log.info("api:{}.{}, argNum:{}, len:{}, args:{}", sname, m[1], argNum, args.length(),
 				requestArgs != null);
 		WebUtil.containService(m[0], m[1], argNum);
-		return SpringUtil.jsonCall(m[0].endsWith(servicePostfix) ? m[0] : m[0] + servicePostfix,
-				m[1], requestArgs, argNum);
+		return SpringUtil.jsonCall(sname, m[1], requestArgs, argNum);
 	}
 
 	public void setServicePostfix(String servicePostfix)

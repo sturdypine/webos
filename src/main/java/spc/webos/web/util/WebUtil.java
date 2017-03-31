@@ -195,7 +195,12 @@ public class WebUtil
 			{
 				Method me = MethodUtil
 						.findMethod(SpringUtil.getInstance().getBean(s, null).getClass(), m, -1);
-				argNum = me.getParameterCount();
+				if (me != null) argNum = me.getParameterCount();
+				else
+				{
+					log.info("no method:{}.{}", s, m);
+					argNum = -1;
+				}
 			}
 		}
 		containService(s, m, argNum);
