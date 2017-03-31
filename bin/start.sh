@@ -17,8 +17,11 @@ then
 	m=`pwd`
 	echo "work_dir:${m}, module:${jvm}"
 else
-	echo "No properties:${module}/conf/${jvm}.properties"
-	exit
+	cd ${module}
+	m=`pwd`
+	echo "Warning: No properties:${module}/conf/${jvm}.properties"
+	# in docker container, jvm(010, 020 etc).properties is optional
+	#exit
 fi
 
 bizjar=""
