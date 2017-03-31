@@ -41,10 +41,10 @@ public class URLSecurityFilter extends AbstractURLFilter
 	protected AntPathBasedFilterDefinitionMap errPageSource = new AntPathBasedFilterDefinitionMap();
 	@Value("${app.web.session.suiClazz?spc.webos.web.common.SessionUserInfo}")
 	protected String suiClazz = "spc.webos.web.common.SessionUserInfo";
-	@Value("${app.web.session.uri.logout?/js/login/logout}")
-	protected String logoutUri = "/js/login/logout";
-	@Value("${app.web.session.uri.login?/js/login/login}")
-	protected String loginUri = "/js/login/login";
+	@Value("${app.web.session.uri.logout?/api/login/logout}")
+	protected String logoutUri = "/api/login/logout";
+	@Value("${app.web.session.uri.login?/api/login/login}")
+	protected String loginUri = "/api/login/login";
 	@Value("${app.web.session.uri.create?/v}")
 	protected String[] createUri = { "/v" }; // 需要创建session的uri, 验证码
 	@Value("${app.web.session.err.status?555}")
