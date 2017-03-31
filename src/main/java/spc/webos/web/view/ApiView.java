@@ -40,7 +40,7 @@ public class ApiView implements View
 			ret = retm;
 		}
 		String json = JsonUtil.obj2json(ret);
-		boolean utf8 = "true".equalsIgnoreCase(request.getHeader("utf8"));
+		boolean utf8 = "true".equalsIgnoreCase(request.getHeader(Web.REQ_KEY_UTF8));
 		log.debug("utf8:{}, json:{}", utf8, json);
 		response.getWriter().print(utf8 ? StringX.str2utf8(json) : json);
 	}
