@@ -203,7 +203,6 @@ public class WebUtil
 				}
 			}
 		}
-		containService(s, m, argNum);
 		return argNum;
 	}
 
