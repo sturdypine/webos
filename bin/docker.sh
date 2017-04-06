@@ -12,6 +12,7 @@ cd $(dirname $0)/../apps
 webosPath=`pwd`
 cd ${module}
 m=`pwd`
+echo "work_dir:${m}, module:${jvm}"
 
 bizjar=""
 webos=""
