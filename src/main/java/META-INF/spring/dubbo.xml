@@ -9,7 +9,7 @@
 
 	<dubbo:registry address="${dubbo.registry.address?zookeeper://localhost:2181}" />
 
-	<dubbo:protocol name="dubbo" port="${dubbo.port?-1}"
+	<dubbo:protocol name="dubbo" port="${dubbo.port?-1}" host="${dubbo.host?}"
 		dispatcher="${dubbo.protocol.dispatcher?all}" threadpool="${dubbo.protocol.threadpool?fixed}"
 		threads="${dubbo.protocol.threads?100}" queues="${dubbo.protocol.queues?0}"
 		buffer="${dubbo.protocol.buffer?8192}" accepts="${dubbo.protocol.accepts?1000}"

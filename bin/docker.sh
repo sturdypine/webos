@@ -10,16 +10,8 @@ fi
 
 cd $(dirname $0)/../apps
 webosPath=`pwd`
-# check exists "apps/xx/conf/jvm.properties"
-if [ -f "${module}/conf/${jvm}.properties" ]
-then
-	cd ${module}
-	m=`pwd`
-	echo "work_dir:${m}, module:${jvm}"
-else
-	echo "Warning: No properties:${module}/conf/${jvm}.properties"
-	exit
-fi
+cd ${module}
+m=`pwd`
 
 bizjar=""
 webos=""
@@ -60,13 +52,13 @@ for jar in ../../lib/*.jar; do
 	fi
 done
 
-JAVA_OPTS=" -Djava.awt.headless=true -Djava.net.preferIPv4Stack=true "
+JAVA_OPTS=" -Djava.net.preferIPv4Stack=true "
 if [ "${opts}" == "" ]
 then
 	#opts="-Xms1g -Xmx1g"
 	opts=""
 fi
-JAVA_MEM_OPTS=" -server ${opts} -XX:SurvivorRatio=2 -XX:+UseParallelGC "
+JAVA_MEM_OPTS=" -server -XX:SurvivorRatio=2 -XX:+UseParallelGC ${opts} " 
 
 JavaPNO=`ps -ef | grep java | grep ${module}/${jvm} | awk '{print $2 }'`
 echo $JavaPNO
@@ -76,7 +68,7 @@ then
 else
     echo "${module}/${jvm} jvm is starting with [${webos}] ..."
     #echo "$JAVA_OPTS $JAVA_MEM_OPTS -Dpdf.fontpath=$webosPath/lib/simsun.ttf -Ddubbo.shutdown.hook=true -Dapp.workerId=${jvm} -cp .:/conf/:${module}/${jvm}:$CLASSPATH"
-	nohup java $JAVA_OPTS $JAVA_MEM_OPTS -Dpdf.fontpath=$webosPath/lib/simsun.ttf -Ddubbo.shutdown.hook=true -Dapp.workerId=${jvm} -Dbizjar=${bizjar} -cp .:conf:${module}/${jvm}:$CLASSPATH com.alibaba.dubbo.container.Main &
+	nohup java $JAVA_MEM_OPTS  $JAVA_OPTS -Dpdf.fontpath=$webosPath/lib/simsun.ttf -Ddubbo.shutdown.hook=true -Dapp.workerId=${jvm} -Dbizjar=${bizjar} -cp .:conf:${module}/${jvm}:$CLASSPATH com.alibaba.dubbo.container.Main &
   	tail -f nohup.out
 fi
 

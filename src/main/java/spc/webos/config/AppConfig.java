@@ -62,6 +62,7 @@ public class AppConfig implements BeanSelfAware, Config
 		for (String key : keys)
 		{
 			Object v = config.get(key);
+			if (v == null) v = System.getProperty(key); // 940, 读取系统配置
 			if (v != null) return value(v, defValue);
 		}
 		return defValue;
@@ -70,7 +71,9 @@ public class AppConfig implements BeanSelfAware, Config
 	public <T> T getProperty(String key, T defValue)
 	{
 		if (StringX.nullity(key)) return defValue;
-		return value(config.get(key), defValue);
+		Object v = config.get(key);
+		if (v == null) v = System.getProperty(key); // 940, 读取系统配置
+		return value(v, defValue);
 	}
 
 	protected <T> T value(Object value, T defValue)
