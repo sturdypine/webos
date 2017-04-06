@@ -10,6 +10,4 @@ B/S framework, a more lightly framework, no springMVC controllers, javascript ca
 <br>
 extjs6.0
 <br>
-http://59.110.22.112:8080/portal/p/main/main
-<br>
-admin/admin123
+support docker
