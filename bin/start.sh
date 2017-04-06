@@ -10,15 +10,15 @@ fi
 
 cd $(dirname $0)/../apps
 webosPath=`pwd`
+cd ${module}
 # check exists "apps/xx/conf/jvm.properties"
 if [ -f "${module}/conf/${jvm}.properties" ]
 then
-	cd ${module}
 	m=`pwd`
 	echo "work_dir:${m}, module:${jvm}"
 else
 	echo "Warning: No properties:${module}/conf/${jvm}.properties"
-	exit
+	#exit
 fi
 
 bizjar=""
