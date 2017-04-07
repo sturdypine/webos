@@ -120,6 +120,7 @@ public class PropertyConfigurer extends PropertyPlaceholderConfigurer
 		log.info("load: {}.properties, app:{}.{}", workerId, app, jvm);
 		String dbconfig = props.getProperty(APP_DBCONFIG);
 		String url = props.getProperty(DEFAULT_JDBC_URL);
+		if (url == null) url = System.getProperty(DEFAULT_JDBC_URL);
 		if (!"false".equalsIgnoreCase(dbconfig) && url != null) loadDBConfig();
 		else log.info("no dbconfig: {}, url:{}", dbconfig, url);
 	}
@@ -137,10 +138,15 @@ public class PropertyConfigurer extends PropertyPlaceholderConfigurer
 	// 从数据库加载配置信息
 	protected void loadDBConfig()
 	{
-		String url = props.getProperty(DEFAULT_JDBC_URL);
-		String username = props.getProperty(DEFAULT_JDBC_USERNAME);
-		String password = props.getProperty(DEFAULT_JDBC_PASSWORD);
-		String driver = props.getProperty(DEFAULT_JDBC_DRIVER);
+		String url = System.getProperty(DEFAULT_JDBC_URL);
+		if (StringX.nullity(url)) url = props.getProperty(DEFAULT_JDBC_URL);
+		String username = System.getProperty(DEFAULT_JDBC_USERNAME);
+		if (StringX.nullity(username)) username = props.getProperty(DEFAULT_JDBC_USERNAME);
+		String password = System.getProperty(DEFAULT_JDBC_PASSWORD);
+		if (StringX.nullity(password)) password = props.getProperty(DEFAULT_JDBC_PASSWORD);
+		String driver = System.getProperty(DEFAULT_JDBC_DRIVER);
+		if (StringX.nullity(driver)) driver = props.getProperty(DEFAULT_JDBC_DRIVER);
+
 		if (StringX.nullity(driver))
 		{
 			if (url.startsWith("jdbc:mysql")) driver = "com.mysql.jdbc.Driver";

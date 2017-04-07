@@ -4,7 +4,7 @@ public class Common
 {
 	// 当前版本信息
 	public static final String VERSION = "9.4.0b";
-	public static final String VERSION_DATE = "20170406";
+	public static final String VERSION_DATE = "20170408";
 
 	// jms. properties
 	public static final String JMS_TRACE_NO = "TRACE_NO";
