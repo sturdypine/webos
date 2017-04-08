@@ -10,14 +10,24 @@ fi
 
 cd $(dirname $0)/../apps
 webosPath=`pwd`
-cd ${module}
-# check exists "apps/xx/conf/jvm.properties"
-if [ -f "${module}/conf/${jvm}.properties" ]
+
+# check dir exists "apps/xx"
+if [ -d "${module}" ]
 then
+	cd ${module}
 	m=`pwd`
 	echo "work_dir:${m}, module:${jvm}"
 else
-	echo "Warning: No properties:${module}/conf/${jvm}.properties"
+	echo "Warning: No apps/${module}"
+	exit
+fi
+
+# check exists "apps/xx/conf/jvm.properties"
+if [ -f "conf/${jvm}.properties" ]
+then
+	echo "jvm properties: apps/${module}/conf/${jvm}.properties"
+else
+	echo "Warning: No properties:apps/${module}/conf/${jvm}.properties"
 	#exit
 fi
 
