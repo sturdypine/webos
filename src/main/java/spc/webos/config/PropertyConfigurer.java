@@ -58,9 +58,13 @@ public class PropertyConfigurer extends PropertyPlaceholderConfigurer
 	{
 		String value = dbProps.getProperty(key + '.' + app + '.' + jvm);
 		if (value == null) value = dbProps.getProperty(key + '.' + app);
+		if (value == null)
+		{
+			value = System.getProperty(key); // 940 从系统配置信息获取
+			if (StringX.nullity(value)) value = null; // -Dname配置不能为空字符串
+		}
 		if (value == null) value = dbProps.getProperty(key);
 		if (value == null) value = super.resolvePlaceholder(key, props);
-		if (value == null) value = System.getProperty(key); // 940 从系统配置信息获取
 		return value;
 	}
 

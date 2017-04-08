@@ -61,8 +61,9 @@ public class AppConfig implements BeanSelfAware, Config
 	{
 		for (String key : keys)
 		{
-			Object v = config.get(key);
-			if (v == null) v = System.getProperty(key); // 940, 读取系统配置
+			Object v = System.getProperty(key); // 940, 读取系统配置
+			if (v != null && v.toString().length() == 0) v = null; // -Dname配置不能为空字符串
+			if (v == null) v = config.get(key);
 			if (v != null) return value(v, defValue);
 		}
 		return defValue;
