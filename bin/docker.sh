@@ -75,8 +75,8 @@ then
     echo "${module}/${jvm} jvm is running, cannot start it!!! "
 else
     echo "${module}/${jvm} jvm is starting with [${webos}] ..."
-    #echo "$JAVA_OPTS $JAVA_MEM_OPTS -Dpdf.fontpath=$webosPath/lib/simsun.ttf -Ddubbo.shutdown.hook=true -Dapp.workerId=${jvm} -cp .:/conf/:${module}/${jvm}:$CLASSPATH"
-	exec java $JAVA_MEM_OPTS  $JAVA_OPTS -Dpdf.fontpath=$webosPath/lib/simsun.ttf -Ddubbo.port=$DUBBO_PORT -Ddefault.jdbc.url=$JDBC_URL -Ddefault.jdbc.username=$JDBC_USER -Ddefault.jdbc.password=$JDBC_PWD -Ddubbo.shutdown.hook=true -Dapp.workerId=${jvm} -Dbizjar=${bizjar} -cp .:conf:$CLASSPATH com.alibaba.dubbo.container.Main
+    #echo "$JAVA_OPTS $JAVA_MEM_OPTS -Dpdf.fontpath=$webosPath/lib/simsun.ttf -Ddubbo.shutdown.hook=true -Dapp.workerId=${jvm} -cp .:conf:${module}/${jvm}:$CLASSPATH"
+	exec java $JAVA_MEM_OPTS  $JAVA_OPTS -Dpdf.fontpath=$webosPath/lib/simsun.ttf -Ddubbo.port=$DUBBO_PORT -Ddefault.jdbc.url=$JDBC_URL -Ddefault.jdbc.username=$JDBC_USER -Ddefault.jdbc.password=$JDBC_PWD -Ddubbo.shutdown.hook=true -Dapp.workerId=${jvm} -Dbizjar=${bizjar} -cp .:conf:${module}/${jvm}:$CLASSPATH com.alibaba.dubbo.container.Main
 fi
 
 
