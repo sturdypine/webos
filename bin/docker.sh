@@ -1,3 +1,4 @@
+#!/bin/bash
 module=$1
 jvm=$JVMNO
 opts=$3
