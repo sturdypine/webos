@@ -121,12 +121,9 @@ public class PropertyConfigurer extends PropertyPlaceholderConfigurer
 			this.jvm = workerId;
 			props.setProperty("app.workerId", workerId);
 		}
-		log.info("load: {}.properties, app:{}.{}", workerId, app, jvm);
 		String dbconfig = props.getProperty(APP_DBCONFIG);
-		String url = props.getProperty(DEFAULT_JDBC_URL);
-		if (url == null) url = System.getProperty(DEFAULT_JDBC_URL);
-		if (!"false".equalsIgnoreCase(dbconfig) && url != null) loadDBConfig();
-		else log.info("no dbconfig: {}, url:{}", dbconfig, url);
+		log.info("load: {}.properties, app:{}.{}, dbconfig:{}", workerId, app, jvm, dbconfig);
+		if (!"false".equalsIgnoreCase(dbconfig)) loadDBConfig();
 	}
 
 	protected String app;
@@ -144,6 +141,11 @@ public class PropertyConfigurer extends PropertyPlaceholderConfigurer
 	{
 		String url = System.getProperty(DEFAULT_JDBC_URL);
 		if (StringX.nullity(url)) url = props.getProperty(DEFAULT_JDBC_URL);
+		if (StringX.nullity(url))
+		{
+			log.warn("no db url:{}", url);
+			return;
+		}
 		String username = System.getProperty(DEFAULT_JDBC_USERNAME);
 		if (StringX.nullity(username)) username = props.getProperty(DEFAULT_JDBC_USERNAME);
 		String password = System.getProperty(DEFAULT_JDBC_PASSWORD);
@@ -153,13 +155,13 @@ public class PropertyConfigurer extends PropertyPlaceholderConfigurer
 
 		if (StringX.nullity(driver))
 		{
-			if (url.startsWith("jdbc:mysql")) driver = "com.mysql.jdbc.Driver";
+			if (url.startsWith("jdbc:derby")) driver = "org.apache.derby.jdbc.ClientDriver";
 			else if (url.startsWith("jdbc:oracle")) driver = "oracle.jdbc.driver.OracleDriver";
-			else driver = "org.apache.derby.jdbc.ClientDriver";
+			else driver = "com.mysql.jdbc.Driver";
 		}
 		String sql = props.getProperty(APP_SYS_CONFIG_SQL);
 		if (sql == null) sql = "SELECT code,val FROM sys_config where status='1'";
-		log.info("load db config url:{}, username:{}, driver:{}, sql:{}", url, username, driver,
+		log.info("load db config url:{}\nusername:{}\ndriver:{}\nsql:{}", url, username, driver,
 				sql);
 		try
 		{
