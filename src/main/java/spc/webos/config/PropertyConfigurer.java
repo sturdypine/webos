@@ -173,13 +173,13 @@ public class PropertyConfigurer extends PropertyPlaceholderConfigurer
 				while (rs.next())
 					dbProps.put(rs.getString(1), rs.getString(2));
 			}
+			log.info("db config items:{}", dbProps.size());
+			log.debug("db config:{}", dbProps.keySet());
 		}
 		catch (Exception e)
 		{
-			log.info("Fail to load db config", e);
+			log.warn("Fail to load db config", e);
 		}
-		log.info("db config size:{}", dbProps.size());
-		log.debug("db config:{}", dbProps.keySet());
 	}
 
 	protected String resource = "classpath*:app*.properties";
