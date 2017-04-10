@@ -2,6 +2,9 @@ package demo.impl;
 
 import java.util.List;
 
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
 import demo.DemoService;
 import demo.ICallback;
 import demo.ValidationParameter;
@@ -14,8 +17,9 @@ import spc.webos.service.BaseService;
 
 public class DemoServiceImpl extends BaseService implements DemoService {
 	@LogTrace
-	@DataSource(rule = "t_test", jt = true)
+	@DataSource(rule = "t_test")
 	@Override
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public String sayHello(@LTPath @ColumnPath String name) {
 		// try {
 		// Thread.sleep(200l);
