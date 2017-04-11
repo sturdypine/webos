@@ -33,7 +33,7 @@ public class AppRegisterZKServiceImpl extends ZKService implements AppRegisterZK
 	@Override
 	public void init() throws Exception
 	{
-		if (!check || StringX.nullity(zkHost)) return;
+		if (!check || StringX.nullity(zkHost) || !config.isProduct()) return;
 		appPath = path + "/" + SpringUtil.APPCODE + "/" + SpringUtil.JVM;
 		zk = zk();
 		log.info("register app: {}, host:{}, zk:{}, persistent:{}", appPath,
