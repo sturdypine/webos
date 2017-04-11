@@ -155,9 +155,13 @@ public class PropertyConfigurer extends PropertyPlaceholderConfigurer
 
 		if (StringX.nullity(driver))
 		{
-			if (url.startsWith("jdbc:derby")) driver = "org.apache.derby.jdbc.ClientDriver";
+			if (url.startsWith("jdbc:mysql")) driver = "com.mysql.jdbc.Driver";
 			else if (url.startsWith("jdbc:oracle")) driver = "oracle.jdbc.driver.OracleDriver";
-			else driver = "com.mysql.jdbc.Driver";
+			else if (url.startsWith("jdbc:db2")) driver = "com.ibm.db2.jcc.DB2Driver";
+			else if (url.startsWith("jdbc:sqlserver"))
+				driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+			else if (url.startsWith(" jdbc:postgresql")) driver = "org.postgresql.Driver";
+			else if (url.startsWith("jdbc:derby")) driver = "org.apache.derby.jdbc.ClientDriver";
 		}
 		String sql = props.getProperty(APP_SYS_CONFIG_SQL);
 		if (sql == null) sql = "SELECT code,val FROM sys_config where status='1'";
