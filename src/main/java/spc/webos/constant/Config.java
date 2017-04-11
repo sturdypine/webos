@@ -9,6 +9,7 @@ package spc.webos.constant;
 public class Config
 {
 	public final static String APP_WORKERID = "app.workerId";
+	public final static String APP_DOCKER = "app.docker";
 
 	public final static String app_pdf_fontpath = "app.pdf.fontpath";
 

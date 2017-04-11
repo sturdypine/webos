@@ -96,9 +96,10 @@ public class PropertyConfigurer extends PropertyPlaceholderConfigurer
 		}
 
 		// 3. 最后加载某一特定jvm编号的配置文件
+		String docker = System.getProperty(Config.APP_DOCKER);
 		String workerId = System.getProperty(Config.APP_WORKERID);
-		if (!StringX.nullity(workerId))
-		{
+		if (!StringX.nullity(workerId) && !"true".equalsIgnoreCase(docker))
+		{ // 940, docker模式下启动，无需加载jvm配置，方便非docker模式和docker模式下打包
 			Resource res = prpr.getResource("classpath:" + workerId + ".properties");
 			log.info("loading jvm properties:{}", res);
 			try (InputStreamReader reader = new InputStreamReader(res.getInputStream(),
@@ -122,7 +123,8 @@ public class PropertyConfigurer extends PropertyPlaceholderConfigurer
 			props.setProperty("app.workerId", workerId);
 		}
 		String dbconfig = props.getProperty(APP_DBCONFIG);
-		log.info("load: {}.properties, app:{}.{}, dbconfig:{}", workerId, app, jvm, dbconfig);
+		log.info("load: {}.properties, app:{}.{}, docker:{}, dbconfig:{}", workerId, app, jvm,
+				docker, dbconfig);
 		if (!"false".equalsIgnoreCase(dbconfig)) loadDBConfig();
 	}
 
