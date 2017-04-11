@@ -21,7 +21,7 @@
 
 	<bean id="springutil" class="spc.webos.util.SpringUtil"
 		factory-method="getInstance" depends-on="appconfig" p:jvm="${app.workerId?00}"
-		p:app="${app.name?SPC}" p:ip="${app.ip?}" p:dataDir="${app.dataDir?}" />
+		p:app="${app.name?SPC}" p:ip="${app.ip,dubbo.host?}" p:dataDir="${app.dataDir?}" />
 	<bean id="ftlCfg" class="freemarker.template.Configuration"
 		p:defaultEncoding="${app.ftl.charset?UTF-8}" />
 	<bean id="ftlutil" class="spc.webos.util.FTLUtil" factory-method="getInstance"
