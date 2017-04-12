@@ -252,10 +252,13 @@ public class PDFUtil
 		// document.close();
 	}
 
+	static String fontPath;
+
 	static String fontPath()
 	{
+		if (!StringX.nullity(fontPath)) return fontPath;
 		// 940, 优先使用命令行指定的字体文件
-		String fontPath = System.getProperty(PDFUtil.PDF_FONT_PATH);
+		fontPath = System.getProperty(PDFUtil.PDF_FONT_PATH);
 		if (StringX.nullity(fontPath))
 			fontPath = AppConfig.getInstance().getProperty(Config.app_pdf_fontpath, false, null);
 		if (StringX.nullity(fontPath)) fontPath = Thread.currentThread().getContextClassLoader()
