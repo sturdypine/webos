@@ -3,21 +3,21 @@
 # desc : jdk8,webos
 ############################################
 # 
-FROM centos/jdk8:latest
+#FROM centos/jdk8:latest
+FROM alpine/jre8:latest
 #
 MAINTAINER spc (sturdypine@icloud.com)
 
-#
 ENV TZ=Asia/Shanghai
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+ENV WEBOS_HOME /webos
 
 #
-RUN mkdir /webos
-RUN mkdir /webos/logs
+#RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+RUN mkdir /webos && \
+    mkdir /webos/logs && \
+    mkdir /webos/apps
 ADD lib /webos/lib
-RUN mkdir /webos/apps
 ADD bin /webos/bin
 RUN chmod -R 755 /webos/bin
 
 VOLUME  ["/webos/logs"]
-ENV WEBOS_HOME /webos

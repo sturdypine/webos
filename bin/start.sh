@@ -86,7 +86,7 @@ then
 else
     echo "${module}/${jvm} jvm is starting with [${webos}] ..."
     #echo "$JAVA_OPTS $JAVA_MEM_OPTS -Dpdf.fontpath=$webosPath/lib/simsun.ttf -Ddubbo.shutdown.hook=true -Dapp.workerId=${jvm} -cp .:conf:${module}/${jvm}:$CLASSPATH"
-	nohup java $JAVA_OPTS $JAVA_MEM_OPTS -Dpdf.fontpath=$webosPath/lib/simsun.ttf -Ddubbo.shutdown.hook=true -Dapp.workerId=${jvm} -Dbizjar=${bizjar} -cp .:conf:${module}/${jvm}:$CLASSPATH com.alibaba.dubbo.container.Main &
+	nohup java $JAVA_OPTS $JAVA_MEM_OPTS  -Ddubbo.shutdown.hook=true -Dapp.workerId=${jvm} -Dbizjar=${bizjar} -cp .:conf:${module}/${jvm}:$CLASSPATH com.alibaba.dubbo.container.Main &
   	tail -f nohup.out
 fi
 

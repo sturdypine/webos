@@ -77,7 +77,7 @@ then
 else
     echo "${module}/${jvm} jvm is starting with [${webos}] ..."
     #echo "$JAVA_OPTS $JAVA_MEM_OPTS -Dpdf.fontpath=$webosPath/lib/simsun.ttf -Ddubbo.shutdown.hook=true -Dapp.workerId=${jvm} -cp .:conf:$CLASSPATH"
-    exec java $JAVA_MEM_OPTS  $JAVA_OPTS -Dapp.docker=true -Dapp.product=$APP_PRODUCT -Dpdf.fontpath=$webosPath/lib/simsun.ttf -Ddubbo.port=$DUBBO_PORT -Ddefault.jdbc.url=$JDBC_URL -Ddefault.jdbc.username=$JDBC_USER -Ddefault.jdbc.password=$JDBC_PWD -Ddubbo.shutdown.hook=true -Dapp.workerId=${jvm} -Dbizjar=${bizjar} -cp .:conf:$CLASSPATH com.alibaba.dubbo.container.Main
+    exec java $JAVA_MEM_OPTS  $JAVA_OPTS -Dapp.docker=true -Dapp.product=$APP_PRODUCT -Ddubbo.port=$DUBBO_PORT -Ddefault.jdbc.url=$JDBC_URL -Ddefault.jdbc.username=$JDBC_USER -Ddefault.jdbc.password=$JDBC_PWD -Ddubbo.shutdown.hook=true -Dapp.workerId=${jvm} -Dbizjar=${bizjar} -cp .:conf:$CLASSPATH com.alibaba.dubbo.container.Main
 fi
 
 
