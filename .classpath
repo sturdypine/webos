@@ -45,11 +45,9 @@
 	<classpathentry kind="lib" path="lib/curator-client-2.11.0.jar"/>
 	<classpathentry kind="lib" path="lib/curator-framework-2.11.0.jar"/>
 	<classpathentry kind="lib" path="lib/curator-recipes-2.11.0.jar"/>
-	<classpathentry kind="lib" path="lib/derbyclient-10.12.1.1.jar"/>
 	<classpathentry kind="lib" path="lib/dom4j-1.6.1.jar"/>
 	<classpathentry kind="lib" path="lib/druid-1.0.23.jar"/>
 	<classpathentry kind="lib" path="lib/dubbo-2.5.3.1.jar"/>
-	<classpathentry kind="lib" path="lib/ehcache-3.2.0.jar"/>
 	<classpathentry kind="lib" path="lib/fastjson-1.2.3.jar"/>
 	<classpathentry kind="lib" path="lib/freemarker-2.3.23.jar"/>
 	<classpathentry kind="lib" path="lib/fst-2.48.jar"/>
