@@ -76,7 +76,7 @@ public class PropertyConfigurer extends PropertyPlaceholderConfigurer
 		PathMatchingResourcePatternResolver prpr = new PathMatchingResourcePatternResolver();
 		for (Resource res : prpr.getResources(jarResource))
 		{
-			log.info("loading jar properties:{}", res);
+			log.info("loading {}:{}", jarResource, res);
 			try (InputStreamReader reader = new InputStreamReader(res.getInputStream(),
 					Common.CHARSET_UTF8))
 			{
@@ -87,7 +87,7 @@ public class PropertyConfigurer extends PropertyPlaceholderConfigurer
 		// 2. 再次加载位于运行环境的配置文件
 		for (Resource res : prpr.getResources(resource))
 		{
-			log.info("loading properties:{}", res);
+			log.info("loading {}:{}", resource, res);
 			try (InputStreamReader reader = new InputStreamReader(res.getInputStream(),
 					Common.CHARSET_UTF8))
 			{
