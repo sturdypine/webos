@@ -113,16 +113,12 @@ public class PropertyConfigurer extends PropertyPlaceholderConfigurer
 			}
 		}
 		this.props = props;
-		this.app = props.getProperty("app.name");
-		this.jvm = props.getProperty("app.workerId");
+		this.app = props.getProperty(Config.APP_NAME);
+		this.jvm = props.getProperty(Config.APP_WORKERID);
 		// 940_20170329,
 		// 如果jvm.properties里面没有提供app.workerId配置，则使用jvm启动命令的-Dapp.workerId=${jvm}
-		if (StringX.nullity(jvm))
-		{
-			this.jvm = workerId;
-			props.setProperty("app.workerId", workerId);
-		}
-		String dbconfig = props.getProperty(APP_DBCONFIG);
+		if (StringX.nullity(jvm)) this.jvm = workerId;
+		String dbconfig = props.getProperty(Config.APP_DBCONFIG);
 		log.info("load: {}.properties, app:{}.{}, docker:{}, dbconfig:{}", workerId, app, jvm,
 				docker, dbconfig);
 		if (!"false".equalsIgnoreCase(dbconfig)) loadDBConfig();
@@ -131,29 +127,22 @@ public class PropertyConfigurer extends PropertyPlaceholderConfigurer
 	protected String app;
 	protected String jvm;
 
-	public static String APP_DBCONFIG = "app.dbconfig";
-	public static String DEFAULT_JDBC_URL = "default.jdbc.url";
-	public static String DEFAULT_JDBC_USERNAME = "default.jdbc.username";
-	public static String DEFAULT_JDBC_PASSWORD = "default.jdbc.password";
-	public static String DEFAULT_JDBC_DRIVER = "default.jdbc.driver";
-	public static String APP_SYS_CONFIG_SQL = "app.dbconfig.sql";
-
 	// 从数据库加载配置信息
 	protected void loadDBConfig()
 	{
-		String url = System.getProperty(DEFAULT_JDBC_URL);
-		if (StringX.nullity(url)) url = props.getProperty(DEFAULT_JDBC_URL);
+		String url = System.getProperty(Config.DEFAULT_JDBC_URL);
+		if (StringX.nullity(url)) url = props.getProperty(Config.DEFAULT_JDBC_URL);
 		if (StringX.nullity(url))
 		{
 			log.warn("no db url:{}", url);
 			return;
 		}
-		String username = System.getProperty(DEFAULT_JDBC_USERNAME);
-		if (StringX.nullity(username)) username = props.getProperty(DEFAULT_JDBC_USERNAME);
-		String password = System.getProperty(DEFAULT_JDBC_PASSWORD);
-		if (StringX.nullity(password)) password = props.getProperty(DEFAULT_JDBC_PASSWORD);
-		String driver = System.getProperty(DEFAULT_JDBC_DRIVER);
-		if (StringX.nullity(driver)) driver = props.getProperty(DEFAULT_JDBC_DRIVER);
+		String username = System.getProperty(Config.DEFAULT_JDBC_USERNAME);
+		if (StringX.nullity(username)) username = props.getProperty(Config.DEFAULT_JDBC_USERNAME);
+		String password = System.getProperty(Config.DEFAULT_JDBC_PASSWORD);
+		if (StringX.nullity(password)) password = props.getProperty(Config.DEFAULT_JDBC_PASSWORD);
+		String driver = System.getProperty(Config.DEFAULT_JDBC_DRIVER);
+		if (StringX.nullity(driver)) driver = props.getProperty(Config.DEFAULT_JDBC_DRIVER);
 
 		if (StringX.nullity(driver))
 		{
@@ -165,7 +154,7 @@ public class PropertyConfigurer extends PropertyPlaceholderConfigurer
 			else if (url.startsWith(" jdbc:postgresql")) driver = "org.postgresql.Driver";
 			else if (url.startsWith("jdbc:derby")) driver = "org.apache.derby.jdbc.ClientDriver";
 		}
-		String sql = props.getProperty(APP_SYS_CONFIG_SQL);
+		String sql = props.getProperty(Config.APP_SYS_CONFIG_SQL);
 		if (sql == null) sql = "SELECT code,val FROM sys_config where status='1'";
 		log.info("load db config url:{}\nusername:{}\ndriver:{}\nsql:{}", url, username, driver,
 				sql);

@@ -8,13 +8,21 @@ package spc.webos.constant;
  */
 public class Config
 {
+	public final static String APP_NAME = "app.name";
 	public final static String APP_WORKERID = "app.workerId";
 	public final static String APP_DOCKER = "app.docker";
+
+	public static String APP_DBCONFIG = "app.dbconfig";
+	public static String DEFAULT_JDBC_URL = "default.jdbc.url";
+	public static String DEFAULT_JDBC_USERNAME = "default.jdbc.username";
+	public static String DEFAULT_JDBC_PASSWORD = "default.jdbc.password";
+	public static String DEFAULT_JDBC_DRIVER = "default.jdbc.driver";
+	public static String APP_SYS_CONFIG_SQL = "app.dbconfig.sql";
 
 	public final static String app_pdf_fontpath = "app.pdf.fontpath";
 
 	// 701_20131001 用于日志追踪底层网络发送的二进制内容
-//	public final static String TCP_TRACE = "app.trace.tcp";
+	// public final static String TCP_TRACE = "app.trace.tcp";
 	public final static String app_trace_tcp = "app.trace.tcp.";
 	public final static String app_trace_mq = "app.trace.mq.";
 
