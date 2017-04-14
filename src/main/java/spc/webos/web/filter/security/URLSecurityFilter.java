@@ -302,6 +302,7 @@ public class URLSecurityFilter extends AbstractURLFilter
 		String redirect = req.getContextPath();
 		List<String> handler = errPageSource.lookupAttributes(uri);
 		log.info("err page:{}, uri:{}, login:{}, ex:{}", handler, uri, login, ex.toString());
+		if (handler == null || handler.isEmpty()) log.info("ex", ex);
 		String action = handler != null && !handler.isEmpty() ? handler.get(0) : "";
 		if (handler == null || handler.size() == 0) redirect = req.getContextPath();
 		else if (action.startsWith("json"))
