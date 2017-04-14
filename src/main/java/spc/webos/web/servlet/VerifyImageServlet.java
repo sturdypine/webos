@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.Random;
 
@@ -21,6 +22,7 @@ import com.sun.image.codec.jpeg.JPEGImageEncoder;
 
 import spc.webos.config.AppConfig;
 import spc.webos.constant.Config;
+import spc.webos.util.PDFUtil;
 import spc.webos.web.common.SUI;
 
 public class VerifyImageServlet extends HttpServlet
@@ -42,7 +44,6 @@ public class VerifyImageServlet extends HttpServlet
 	protected void doRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException
 	{
-
 		response.setContentType("image/gif");
 		response.setHeader("Cache-Control", "no-cache");
 		int width = 60, height = 20,
@@ -61,7 +62,23 @@ public class VerifyImageServlet extends HttpServlet
 		gra.fillRect(0, 0, width, height);
 
 		gra.setColor(Color.black); // 设置字体色
-		gra.setFont(mFont);
+		try
+		{
+			gra.setFont(new Font("Times New Roman", Font.PLAIN, 20));// 设置字体;
+		}
+		catch (Exception e)
+		{
+			log.warn("font:Times New Roman :: " + e);
+			try
+			{
+				gra.setFont(Font.createFont(Font.TRUETYPE_FONT, new File(PDFUtil.getFontPath()))
+						.deriveFont(Font.BOLD, 20));
+			}
+			catch (Exception ee)
+			{
+				log.warn("font:" + PDFUtil.getFontPath() + " :: " + ee);
+			}
+		}
 
 		/*
 		 * gra.setColor(new Color(0)); gra.drawRect(0,0,width-1,height-1);
@@ -111,6 +128,5 @@ public class VerifyImageServlet extends HttpServlet
 		return new Color(r, g, b);
 	}
 
-	Font mFont = new Font("Times New Roman", Font.PLAIN, 20);// 设置字体
 	protected Logger log = LoggerFactory.getLogger(getClass());
 }

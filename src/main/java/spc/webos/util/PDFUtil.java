@@ -140,7 +140,7 @@ public class PDFUtil
 			// BaseFont bfChinese = BaseFont.createFont("STSongStd-Light",
 			// "UniGB-UCS2-H",
 			// BaseFont.NOT_EMBEDDED);
-			BaseFont bfChinese = BaseFont.createFont(fontPath(), BaseFont.IDENTITY_H,
+			BaseFont bfChinese = BaseFont.createFont(getFontPath(), BaseFont.IDENTITY_H,
 					BaseFont.NOT_EMBEDDED);
 			while (i < n)
 			{
@@ -254,7 +254,7 @@ public class PDFUtil
 
 	static String fontPath;
 
-	static String fontPath()
+	public static String getFontPath()
 	{
 		if (!StringX.nullity(fontPath)) return fontPath;
 		// 940, 优先使用命令行指定的字体文件
@@ -277,7 +277,7 @@ public class PDFUtil
 				// BaseFont f = BaseFont.createFont("STSong-Light",
 				// "UniGB-UCS2-H",
 				// BaseFont.NOT_EMBEDDED);
-				BaseFont f = BaseFont.createFont(fontPath = fontPath(), BaseFont.IDENTITY_H,
+				BaseFont f = BaseFont.createFont(fontPath = getFontPath(), BaseFont.IDENTITY_H,
 						BaseFont.NOT_EMBEDDED);
 				return new Font(f, size, style, color);
 			}
