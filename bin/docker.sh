@@ -1,13 +1,5 @@
 #!/bin/bash
 module=$1
-jvm=$JVMNO
-opts=$3
-
-if [ "${jvm}" = "" ]
-then
-        echo "module & jvm cannot null!!!"
-        exit 0
-fi
 
 if [ -n "$DOCKER_IP" ]
 then
@@ -20,7 +12,7 @@ cd $(dirname $0)/../apps
 webosPath=`pwd`
 cd ${module}
 m=`pwd`
-echo "work_dir:${m}, module:${jvm}"
+echo "work_dir:${m}"
 
 bizjar=""
 webos=""
@@ -61,23 +53,17 @@ for jar in ../../lib/*.jar; do
 	fi
 done
 
-JAVA_OPTS=" -Djava.awt.headless=true -Djava.net.preferIPv4Stack=true "
-if [ "${opts}" == "" ]
-then
-	#opts="-Xms1g -Xmx1g"
-	opts=""
-fi
-JAVA_MEM_OPTS=" -server ${opts} -XX:SurvivorRatio=2 -XX:+UseParallelGC "
+JAVA_MEM_OPTS=" -server -XX:SurvivorRatio=2 -XX:+UseParallelGC "
 
-JavaPNO=`ps -ef | grep java | grep ${module}/${jvm} | awk '{print $2 }'`
+JavaPNO=`ps -ef | grep java | awk '{print $2 }'`
 echo $JavaPNO
 if [ "${JavaPNO}" != "" ]
 then
-    echo "${module}/${jvm} jvm is running, cannot start it!!! "
+    echo "${module} is running, cannot start it!!! "
 else
-    echo "${module}/${jvm} jvm is starting with [${webos}] ..."
-    #echo "$JAVA_OPTS $JAVA_MEM_OPTS -Dpdf.fontpath=$webosPath/lib/simsun.ttf -Ddubbo.shutdown.hook=true -Dapp.workerId=${jvm} -cp .:conf:$CLASSPATH"
-    exec java $JAVA_MEM_OPTS $JAVA_OPTS -Dapp.docker=true -Ddubbo.shutdown.hook=true $JAVA_ARGS -Dapp.workerId=${jvm} -Dbizjar=${bizjar} -cp .:conf:$CLASSPATH com.alibaba.dubbo.container.Main
+    echo "${module} is starting with [${webos}] ..."
+    #echo "$JAVA_MEM_OPTS -Dpdf.fontpath=$webosPath/lib/simsun.ttf -Ddubbo.shutdown.hook=true -cp .:conf:$CLASSPATH"
+    exec java $JAVA_MEM_OPTS -Djava.awt.headless=true -Djava.net.preferIPv4Stack=true -Dapp.docker=true -Ddubbo.shutdown.hook=true $JAVA_ARGS -Dbizjar=${bizjar} -cp .:conf:$CLASSPATH com.alibaba.dubbo.container.Main
 fi
 
 
