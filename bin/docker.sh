@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 module=$1
 
 if [ -n "$DOCKER_IP" ]
@@ -35,13 +35,13 @@ fi
 for jar in lib/*.jar; do
     CLASSPATH=$jar:$CLASSPATH
     bizjar=${jar:4}:$bizjar
-    [[ $jar =~ "spc-webos" ]] && webos=$jar
+    [ $jar =~ "spc-webos" ] && webos=$jar
 done
 # scan webos/lib/*.jar
 for jar in ../../lib/*.jar; do
-	if [[ $jar =~ "spc-webos" ]]
+	if [ $jar =~ "spc-webos" ]
 	then
-		if [[ ${webos} != "" ]]
+		if [ ${webos} != "" ]
 		then
 			echo "skip:[$jar]"
 		else
@@ -53,18 +53,9 @@ for jar in ../../lib/*.jar; do
 	fi
 done
 
-JAVA_MEM_OPTS=" -server -XX:SurvivorRatio=2 -XX:+UseParallelGC "
-
-JavaPNO=`ps -ef | grep java | awk '{print $2 }'`
-echo $JavaPNO
-if [ "${JavaPNO}" != "" ]
-then
-    echo "${module} is running, cannot start it!!! "
-else
-    echo "${module} is starting with [${webos}] ..."
-    #echo "$JAVA_MEM_OPTS -Dpdf.fontpath=$webosPath/lib/simsun.ttf -Ddubbo.shutdown.hook=true -cp .:conf:$CLASSPATH"
-    exec java $JAVA_MEM_OPTS -Djava.awt.headless=true -Djava.net.preferIPv4Stack=true -Dapp.docker=true -Ddubbo.shutdown.hook=true $JAVA_ARGS -Dbizjar=${bizjar} -cp .:conf:$CLASSPATH com.alibaba.dubbo.container.Main
-fi
+echo "${module} is starting with [${webos}] ..."
+#echo "-server -XX:SurvivorRatio=2 -XX:+UseParallelGC -Djava.awt.headless=true -Djava.net.preferIPv4Stack=true -Dapp.docker=true -Ddubbo.shutdown.hook=true $JAVA_ARGS -Dbizjar=${bizjar} -cp .:conf:$CLASSPATH"
+exec java -server -XX:SurvivorRatio=2 -XX:+UseParallelGC -Djava.awt.headless=true -Djava.net.preferIPv4Stack=true -Dapp.docker=true -Ddubbo.shutdown.hook=true $JAVA_ARGS -Dbizjar=${bizjar} -cp .:conf:$CLASSPATH com.alibaba.dubbo.container.Main
 
 
 
