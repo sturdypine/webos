@@ -4,7 +4,8 @@
 ############################################
 # 
 #FROM centos/jdk8:latest
-FROM alpine/jre8:latest
+#FROM alpine/jre8:latest
+FROM frolvlad/alpine-oraclejdk8:latest
 #
 MAINTAINER spc (sturdypine@icloud.com)
 
